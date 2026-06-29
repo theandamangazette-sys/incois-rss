@@ -2,9 +2,7 @@ import urllib.request
 import json
 import xml.etree.ElementTree as ET
 import ssl
-from datetime import datetime
-from xml.sax.saxutils import escape
-
+from html import escape
 # URL of the INCOIS JSON endpoint
 JSON_URL = "https://tsunami.incois.gov.in/itews/DSSProducts/OPR/past90days.json"
 
