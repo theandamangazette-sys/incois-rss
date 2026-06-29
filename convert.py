@@ -1,6 +1,7 @@
 import urllib.request
 import json
 import xml.etree.ElementTree as ET
+import ssl
 from datetime import datetime
 from xml.sax.saxutils import escape
 
@@ -8,8 +9,11 @@ from xml.sax.saxutils import escape
 JSON_URL = "https://tsunami.incois.gov.in/itews/DSSProducts/OPR/past90days.json"
 
 try:
+    ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
     # Fetch JSON data
-    response = urllib.request.urlopen(JSON_URL)
+   response = urllib.request.urlopen(JSON_URL, context=ctx)
     data = json.loads(response.read().decode())
 
     # Create the RSS XML skeleton
