@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-python-version: '3.x'
+      python-version: '3.x'
 
     - name: Run script to convert JSON to XML
       run: python convert.py
