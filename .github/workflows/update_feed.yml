@@ -1,0 +1,29 @@
+name: Update Tsunami RSS Feed
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs exactly every hour
+  workflow_dispatch:      # Allows you to trigger it manually anytime
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-python-version: '3.x'
+
+    - name: Run script to convert JSON to XML
+      run: python convert.py
+
+    - name: Commit and push changes back to repository
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add tsunami.xml
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-updated tsunami.xml feed" && git push)
